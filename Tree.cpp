@@ -163,7 +163,10 @@ void Tree::remove(int i)
     
 //returns the value of the root
     int Tree::root()
-    {return this->r->getData();}
+    {
+        if(this->r != NULL) return r->getData();
+        throw std::runtime_error("tree is empty");
+    }
 
  //returns the value of the parent of the node   
     int Tree::parent(int i)
