@@ -113,9 +113,9 @@ void Tree::remove(int i)
     else 
     {
         Node *dest = getNode(i);
-        Node *par = getNode(parent(i));
+        Node *ancestor = getNode(parent(i));
         bool isRight;
-        if (par->getRight()->getData() == i)
+        if (ancestor->getRight()!=NULL && ancestor->getRight()->getData() == i)
             isRight = true;
         else
             isRight = false;
@@ -123,24 +123,24 @@ void Tree::remove(int i)
         if (dest->getRight() == NULL && dest->getLeft() != NULL) 
         {
            
-            if (isRight){par->setRight(dest->getLeft());}
-            else {par->setLeft(dest->getLeft());}
+            if (isRight){ancestor->setRight(dest->getLeft());}
+            else {ancestor->setLeft(dest->getLeft());}
             delete dest;
         }
         //if the node has only right child
         else if (dest->getRight() != NULL && dest->getLeft() == NULL) 
         {
            
-            if (isRight){par->setRight(dest->getRight());}
-            else {par->setLeft(dest->getRight());}
+            if (isRight){ancestor->setRight(dest->getRight());}
+            else {ancestor->setLeft(dest->getRight());}
             delete dest;
         }
         //if the node has no childs at all
         else if (dest->getRight() == NULL && dest->getLeft() == NULL)
         {
            
-            if (isRight){par->setRight(NULL);}
-            else {par->setLeft(NULL);}
+            if (isRight){ancestor->setRight(NULL);}
+            else {ancestor->setLeft(NULL);}
             delete dest;
         }
         //if the node has two childrens
@@ -176,9 +176,9 @@ void Tree::remove(int i)
              throw std::runtime_error("tree is empty");
         //if the root is the given integer
         if(cur->getData() ==i)
-             throw std::runtime_error("root does not have a parent");
+             throw std::runtime_error("root does not have a ancestorent");
         
-        Node *par=this->r;
+        Node *ancestor=this->r;
         while((cur != NULL)&&!contain)
         {
             if(cur->getData() ==i)
@@ -187,19 +187,19 @@ void Tree::remove(int i)
                 }
             else if(cur->getData() >i)
             {
-                par=cur;
+                ancestor=cur;
                 cur = cur->getLeft();
             }
             else
             {
-                par=cur;
+                ancestor=cur;
                 cur = cur->getRight();
             }                        
         }
         //if the tree doesn't contain the integer
         if(!contain)
             throw std::runtime_error("this num is not in the tree");
-        return par->getData();   
+        return ancestor->getData();   
 
     }
 

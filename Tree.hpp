@@ -54,9 +54,9 @@ class Tree{
             capacity=0;
             r=NULL;
         }
+        ~Tree();
         Tree& insert(int i);
         void remove(int i);
-        Node* removeR(Node* r, int i);
         int size();
         bool contains(int i);
         int root();
@@ -64,9 +64,13 @@ class Tree{
         int left(int i);
         int right(int i);
         void print();
+
+        private:
+        void destroyT(Node* leaf);
         void inorderP(Node *cur);
         Node* getNode(int i);
         Node* minNode(Node *root);
+        Node* removeR(Node* r, int i);
 
 
 };
