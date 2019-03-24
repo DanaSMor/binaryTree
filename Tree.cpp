@@ -275,6 +275,24 @@ void Tree::remove(int i)
         inorderP(this->r);
     }
 
+    Tree::~Tree()
+    {
+        destroyT(r);
+    }
+
+    //////////////////////private methods///////////////////////
+    
+    //destroy the tree
+    void Tree::destroyT(Node * leaf)
+    {
+        if(leaf!=NULL)
+        {
+            destroyT(leaf->getLeft());
+            destroyT(leaf->getRight());
+            delete leaf;
+        }
+    }
+    //prints inorder
     void Tree::inorderP(Node *cur)
     {
         if(cur!=NULL)
