@@ -146,7 +146,7 @@ void Tree::remove(int i)
         //if the node has two childrens
         else
         {
-            Node *min = minNode(dest->getLeft());
+            Node *min = minNode(dest->getRight());
             int minimum = min->getData();
             remove(minimum);
             dest->setData(minimum);
@@ -209,67 +209,41 @@ void Tree::remove(int i)
     //returns the left child of node
     int Tree::left(int i)
     {
+        if(!contains(i))
+            throw std::runtime_error("this num is not in the tree");
         bool contain=false;
 
-        Node *cur=this->r;
+        Node *cur=getNode(i);
 
         if(cur==NULL)
              throw std::runtime_error("tree is empty");
 
-        while((cur != NULL)&&!contain)
-        {
-            if(cur->getData() ==i)
-                {
-                    contain=true;
-                }
-            else if(cur->getData() >i)
-            {
-                cur = cur->getLeft();
-            }
-            else
-            {             
-                cur = cur->getRight();
-            }                        
-        }
-        if(!contain)
-            throw std::runtime_error("this num is not in the tree");
         cur = cur->getLeft();
+        
         if(cur==NULL)
             throw std::runtime_error("no left child");
+
         return cur->getData();  
     }
 
     //returns the right child of node
     int Tree::right(int i)
     {
+        if(!contains(i))
+            throw std::runtime_error("this num is not in the tree");
         bool contain=false;
 
-        Node *cur=this->r;
+        Node *cur=getNode(i);
 
         if(cur==NULL)
              throw std::runtime_error("tree is empty");
 
-        while((cur != NULL)&&!contain)
-        {
-            if(cur->getData() ==i)
-                {
-                    contain=true;
-                }
-            else if(cur->getData() >i)
-            {
-                cur = cur->getLeft();
-            }
-            else
-            {             
-                cur = cur->getRight();
-            }                        
-        }
-        if(!contain)
-            throw std::runtime_error("this num is not in the tree");
         cur = cur->getRight();
+        
         if(cur==NULL)
             throw std::runtime_error("no right child");
-        return cur->getData(); 
+
+        return cur->getData();  
     }
 
     //print tree inorder
